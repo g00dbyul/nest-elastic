@@ -1,0 +1,18 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
+    container_name: elasticsearch
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    network_mode: 'elastic'
+    environment:
+      - discovery.type=single-node
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.3
+    container_name: kibana
+    ports:
+      - '5601:5601'
+    network_mode: 'elastic'
+    links: ['elasticsearch']
+    depends_on: ['elasticsearch']
